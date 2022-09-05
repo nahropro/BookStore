@@ -1,0 +1,47 @@
+﻿@using BookStoreModel.StaticData
+@model BookStoreModel.ViewModels.Users.SelectUserViewModel
+@{
+    ViewBag.Title = "زانیارییه‌كانم";
+}
+
+<p class="page-title">زانیارییه‌كانم</p>
+
+<dl>
+    <dd>ناو</dd>
+    <dt>@Model.FullName</dt>
+
+    <dd>نازناو</dd>
+    <dt>
+        @Model.UserName
+        <a href="@Url.Action("ChangeUserName")">
+            <i class="fal fa-edit"></i>
+        </a>
+    </dt>
+
+    <dd>وشه‌ی نهێنی</dd>
+    <dt>
+        ******
+        <a href="@Url.Action("ChangePassword")">
+            <i class="fal fa-edit"></i>
+        </a>
+    </dt>
+
+    <dd>ته‌له‌فۆن</dd>
+    <dt>@Model.Phone</dt>
+
+    <dd>ناونیشان</dd>
+    <dt>@Model.Address</dt>
+
+    <dd>پله‌</dd>
+    <dt>@Model.RolesInString</dt>
+</dl>
+
+@if (User.IsInRole(RoleNames.MANAGER))
+{
+<a href="@Url.Action("ChangeInformation")">
+    [
+    گۆڕینی زانیاریه‌كان
+    <i class="fal fa-edit"></i>
+    ]
+</a>
+}

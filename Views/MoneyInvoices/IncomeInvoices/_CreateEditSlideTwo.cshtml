@@ -1,0 +1,69 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@model CreateEditSpendIncomeInvoiceViewModel
+
+<div class="form-group">
+    <label for="Total" class="control-label col-md-2">كۆ</label>
+    <div class="col-md-10">
+        <input type="text" disabled id="Total" class = "form-control" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="Cash" class="control-label col-md-2">نه‌قد</label>
+    <div class="col-md-10 input-group mb-1">
+        @Html.EditorFor(model => model.Cash,
+            new { htmlAttributes = new { @class = "form-control" } })
+        
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <span class="btn-link" id="cash-get-remains">
+                    <i class="fal fa-pen-alt"></i>
+                </span>
+            </span>
+        </div>
+
+        @Html.ValidationMessageFor(model => model.Cash, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="CustomerId" class="control-label col-md-2">قاسه‌</label>
+    <div class="col-md-10">
+        @Html.DropDownList("VaultId", null, "", htmlAttributes: new { @class = "form-control flexselect" })
+        @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="Loan" class="control-label col-md-2">قه‌رز</label>
+    <div class="col-md-10 input-group mb-1">
+        @Html.EditorFor(model => model.Loan,
+            new { htmlAttributes = new { @class = "form-control" } })
+
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <span class="btn-link" id="loan-get-remains">
+                    <i class="fal fa-pen-alt"></i>
+                </span>
+            </span>
+        </div>
+
+        @Html.ValidationMessageFor(model => model.Loan, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="CustomerId" class="control-label col-md-2">مامه‌ڵه‌كار</label>
+    <div class="col-md-10">
+        @Html.DropDownList("CustomerId", null, "", htmlAttributes: new { @class = "form-control flexselect" })
+        @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="Remains" class="control-label col-md-2">مانه‌وه‌</label>
+    <div class="col-md-10">
+        <input type="text" disabled id="Remains" class="form-control" />
+    </div>
+</div>
+

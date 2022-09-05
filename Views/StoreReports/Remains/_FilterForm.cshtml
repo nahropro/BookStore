@@ -1,0 +1,116 @@
+﻿@using BookStoreModel.FilterModels
+@using BookStoreModel.GeneralModels
+@model StoreRemainsFilter
+
+@{ 
+    List<KeyValuePairViewModel<long, string>> stores = new List<KeyValuePairViewModel<long, string>>();
+
+    stores = ViewBag.Stores;
+}
+
+<style>
+    .btn-submit {
+        margin-right: 5px;
+    }
+
+    .form-check-label {
+        margin-left: 20px;
+    }
+
+    div.filter-stores-div{
+        overflow:scroll;
+        height:100px;
+        width:300px;
+        background-color:azure;
+        border-radius:10px;
+    }
+</style>
+
+<div>
+    <form method="get">
+        <div class="form-inline filter-form">
+            <div class="col-4" style="text-align:center">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">تا</span>
+                    </div>
+                    @Html.EditorFor(model => model.UntilDate,
+                        new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="input-group mb-1">
+                    <label class="form-check-label">
+                        سفر
+                        @Html.EditorFor(model => model.ZeroRemains,
+                        new { htmlAttributes = new { @class = "form-control"} })
+                    </label>
+
+                    <label class="form-check-label">
+                        موجه‌ب
+                        @Html.EditorFor(model => model.PositiveRemains,
+                        new { htmlAttributes = new { @class = "form-control"} })
+                    </label>
+
+                    <label class="form-check-label">
+                        سالب
+                        @Html.EditorFor(model => model.NegativeRemains,
+                        new { htmlAttributes = new { @class = "form-control"} })
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-4" style="text-align:right">
+                <div class="input-group mb-1">
+                    <div class="filter-stores-div">
+                        <ul style="list-style-type:none;">
+                            @foreach (var store in stores)
+                            {
+                                <li>
+                                    <div>
+                                        <input type="checkbox" name="StoreIds" value="@store.Key" disabled
+                                               @(Model.StoreIds.Contains(store.Key) ? "checked" : "") />
+                                        <span>@store.Value</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <input type="checkbox" name="IncludeSotoreFilter" id="IncludeSotoreFilter" value="True" style="float:left"
+                           @(Model.IncludeSotoreFilter ? "checked" : "") />
+                </div>
+            </div>
+
+            <div class="col-4" style="text-align:center">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">ڕیزكردن به‌ پێی‌</span>
+                    </div>
+
+                    <select name="SortBy">
+                        <option></option>
+                        <option value="0" @(Model.SortBy == StoreRemainsFilter.SortByEnum.Book ? "Selected" : "")>كتێب</option>
+                        <option value="1" @(Model.SortBy == StoreRemainsFilter.SortByEnum.Remains ? "Selected" : "")>مانه‌وه‌</option>
+                    </select>
+
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <label>
+                                پێچه‌وانه‌
+                                @Html.EditorFor(model => model.SortByDesc)
+                            </label>
+                            ‌
+                        </span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-1">
+                    <button type="submit" class="btn btn-dark btn-submit">
+                        <i class="fal fa-search"></i>
+                        گه‌ڕان
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

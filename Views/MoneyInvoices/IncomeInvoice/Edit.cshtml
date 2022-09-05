@@ -1,0 +1,17 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@model CreateEditSpendIncomeInvoiceViewModel
+
+
+@{
+    ViewBag.Title = "پسووڵه‌ی خه‌رجی (چاككردن)";
+}
+
+<p class="page-title">پسووڵه‌ی خه‌رجی</p>
+
+<p class="page-sub-title">چاككردن</p>
+
+@Html.Partial("~/Views/MoneyInvoices/SpendInvoices/_CreateEdit.cshtml", Model)
+
+@section Scripts{
+    @Scripts.Render("~/Views/MoneyInvoices/SpendInvoices/CreateEdit.js");
+}

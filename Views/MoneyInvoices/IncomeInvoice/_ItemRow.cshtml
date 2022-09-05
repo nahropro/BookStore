@@ -1,0 +1,22 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@model  CreateEditSpendIncomeItemViewModel
+
+<tr>
+    <td>
+        @Html.DropDownList("Types", null, "‌",
+                            htmlAttributes: new { @class = "form-control flexselect js-item-type" })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Amount,
+                            new { htmlAttributes = new {@class= "form-control js-amount", Placeholder="بڕ‌‌" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Note,
+                            new { htmlAttributes = new {@class= "form-control js-note", Placeholder="تێبینی‌‌" } })
+    </td>
+    <td>
+        <span class="btn-link js-remove" title="سڕینه‌وه‌">
+            <i class="fal fa-trash-alt"></i>
+        </span>
+    </td>
+</tr>

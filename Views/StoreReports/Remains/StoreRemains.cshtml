@@ -1,0 +1,74 @@
+﻿@using BookStoreModel.ViewModels.StoreReoports;
+@using BookStoreModel.FilterModels
+@model ICollection<BookEditionRemainsViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی مه‌خزه‌ن";
+}
+
+@{
+    StoreRemainsFilter filter = new StoreRemainsFilter();
+
+    filter = (StoreRemainsFilter)ViewBag.Filter;
+}
+
+<p class="page-title">مانه‌وه‌ی مه‌خزه‌ن</p>
+
+@Html.Partial("~/Views/StoreReports/Remains/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>كتێب</th>
+            <th>مانه‌وه‌</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookEdition.Id</td>
+                <td>@item.BookEdition.Book.Name (@item.BookEdition.EditionInNumber - @item.BookEdition.EditionInString)</td>
+                <td>@item.Remains</td>
+                <td>
+                    <a href="@Url.Action("GetBookEditionDetails",new { BookEditionId=item.BookEdition.Id})" title="كه‌شفی قاسه‌">
+                        <i class="fal fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@Model.Sum(i => i.Remains)</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            toggleStores($('#IncludeSotoreFilter'));
+
+            $('#IncludeSotoreFilter').on('change', function () {
+                toggleStores($(this));
+            });
+        });
+
+        //Toggel stores in the select list dependece on include-stores checkbox
+        function toggleStores ($chk) {
+            if ($chk.prop('checked') == false) {
+                $('[name=StoreIds]').attr('disabled', 'disabled');
+            } else {
+                $('[name=StoreIds]').removeAttr('disabled');
+            }
+        }
+    </script>
+}

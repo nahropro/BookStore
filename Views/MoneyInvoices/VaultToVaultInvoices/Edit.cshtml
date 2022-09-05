@@ -1,0 +1,83 @@
+﻿@using BookStoreModel.ViewModels.VaultToVaultInvoice
+@model CreateEditVaultToVaultInvoiceViewModel
+
+@{
+    ViewBag.Title = "سندووق بۆ سندووق (چاككردن)";
+}
+
+<p class="page-title">پسووڵه‌ی گواستنه‌وه‌ی پاره‌ له‌ سندووقه‌وه‌ بۆ سندووق</p>
+
+<p class="page-sub-title">چاككردن</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="PayVaultId" class="control-label col-md-2">سندووقی پێده‌ر</label>
+            <div class="col-md-10">
+                @Html.DropDownList("PayVaultId", null, "", htmlAttributes: new { @class = "form-control flexselect" })
+                @Html.ValidationMessageFor(model => model.PayVaultId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="GiveVaultId" class="control-label col-md-2">سندووقی وه‌رگر</label>
+            <div class="col-md-10">
+                @Html.DropDownList("GiveVaultId", null, "", htmlAttributes: new { @class = "form-control flexselect" })
+                @Html.ValidationMessageFor(model => model.GiveVaultId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Amount" class="control-label col-md-2">بڕ</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="InvoiceDate" class="control-label col-md-2">ڕێككه‌وت</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InvoiceDate,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Note" class="control-label col-md-2">تێبینی</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i>
+                    چاككردن
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/Views/MoneyInvoices/Shared/shared.js");
+}
+
+

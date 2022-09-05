@@ -1,0 +1,34 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices
+@model ICollection<SelectItemInvoiceViewModel>
+
+@{
+    ViewBag.Title = "پسووڵه‌ی گه‌ڕاوه‌ی فرۆشی ته‌سریف";
+}
+
+<p class="page-title">پسووڵه‌ی گه‌ڕاوه‌ی فرۆشی ته‌سریف</p>
+
+@Html.Partial("~/Views/ItemInvoices/Shared/_index.cshtml", Model)
+
+@section Scripts{
+    @Scripts.Render("~/Views/ItemInvoices/Shared/shared.js")
+
+    <script>
+        $(function () {
+            $('table').on('click', '.js-remove', function () {
+                //Get the Id of the row that stored in the tag
+                id = $(this).attr('data-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-' + id);
+
+                nahro.daleteApi({
+                    url: '/api/ReturnTempSellInvoices/' + id,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌یه‌‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        });
+    </script>
+}
+

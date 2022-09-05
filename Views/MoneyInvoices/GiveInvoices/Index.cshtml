@@ -1,0 +1,120 @@
+﻿@using BookStoreModel.StaticData
+@using BookStoreModel.FilterModels
+@model IEnumerable<BookStoreModel.ViewModels.GiveInvoice.SelectGiveInvoiceViewModel>
+
+@{
+    PayGiveInvoiceFilter filter = new PayGiveInvoiceFilter();
+}
+
+@{
+    ViewBag.Title = "پسووڵه‌ی پاره‌وه‌رگرتن";
+
+    //Get the filter from viewbag and set it to partial view
+    filter = ViewBag.Filter;
+}
+
+<p class="page-title">پسووڵه‌ی پاره‌وه‌رگرتن</p>
+
+<p>
+    <a href="@Url.Action("Create",new { returnUrl = Request.RawUrl})">
+        <span class="btn btn-primary">
+            <i class="far fa-plus-square"></i>
+            زيادكردن
+        </span>
+    </a>
+</p>
+
+<div>
+    @Html.Partial("~/Views/MoneyInvoices/Shared/_PayGiveInvoiceFilterForm.cshtml", filter)
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>مامه‌ڵه‌كار</th>
+            <th>نه‌قد</th>
+            <th>سندووق</th>
+            <th>داشكاندن</th>
+            <th>كۆ</th>
+            <th>ڕێككه‌وت</th>
+            <th>دروستكه‌ر</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tr-@item.Id">
+                <td>@item.Id</td>
+                <td>@item.CustomerFullTitle</td>
+                <td>@String.Format("{0:n0}", item.Amount)</td>
+                <td>@item.VaultName</td>
+                <td>@String.Format("{0:n0}", item.Discount)</td>
+                <td>@String.Format("{0:n0}", item.Total)</td>
+                <td>@item.InvoiceDate.ToString(DateTimeStatics.DATE_FORMAT_FOR_DISPLAY)</td>
+                <td>@item.MoreInfo.ChangeInfo.CreatorUserFullName</td>
+
+                <td>
+                    <span class="btn-link" title="چاككردن">
+                        <a href="@Url.Action("Edit", new { id=item.Id,returnUrl = Request.RawUrl })">
+                            <i class="fal fa-edit"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link js-remove" data-id="@item.Id" title="سڕینه‌وه‌">
+                        <i class="fal fa-trash-alt"></i>
+                    </span>
+
+                    <span class="btn-link js-toggle-info" title="زانیاری زیاتر‌">
+                        <i class="icon fal fa-chevron-circle-down"></i>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="tr-info alert-info tr-@item.Id">
+                <td colspan="9">
+                    @Html.Partial("~/Views/MoneyInvoices/Shared/_PayGiveInvoiceInfoRow.cshtml", item.MoreInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(m => m.Amount))</th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(m => m.Discount))</th>
+            <th>@String.Format("{0:n0}", Model.Sum(m => m.Total))</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    @Scripts.Render("~/Views/MoneyInvoices/Shared/shared.js");
+
+    <script>
+        $(function () {
+            $('table').on('click', '.js-remove', function () {
+                //Get the Id of the row that stored in the tag
+                id = $(this).attr('data-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-' + id);
+
+                nahro.daleteApi({
+                    url: '/api/giveinvoices/' + id,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌ی پاره‌وه‌رگرتنه‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        });
+    </script>
+}

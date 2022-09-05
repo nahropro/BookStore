@@ -1,0 +1,50 @@
+﻿@using BookStoreModel.ViewModels.StoreReoports;
+@model ICollection<BookEditionDischargeRemainsByCustomerViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی ته‌سریف به‌پێی مامه‌ڵه‌كار";
+}
+
+
+<p class="page-title">@ViewBag.Title</p>
+
+@Html.Partial("~/Views/StoreReports/DischargeRemainsByCustomer/_FilterForm.cshtml")
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>مامه‌ڵه‌كار</th>
+            <th>شوێنكار</th>
+            <th>ته‌له‌فۆن</th>
+            <th>مانه‌وه‌</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CustomerId</td>
+                <td>@item.CustomerFullName</td>
+                <td>@item.CustomerWorkPlace</td>
+                <td>@item.CustomerPhone</td>
+                <td>@item.Remains</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@Model.Sum(i => i.Remains)</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    
+}

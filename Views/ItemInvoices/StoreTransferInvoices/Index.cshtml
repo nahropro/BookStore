@@ -1,0 +1,103 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices.StoreTransfer
+@using BookStoreModel.FilterModels
+@model ICollection<SelectStoreTransferInvoiceViewModel>
+
+@{
+    ViewBag.Title = "پسووڵه‌ی گواستنه‌وه‌ی مه‌خزه‌ن";
+}
+
+@{
+    StoreTransferInvoiceFilter filter = new StoreTransferInvoiceFilter();
+
+    //Get the filter from viewbag and set it to partial view
+    filter = ViewBag.Filter;
+}
+
+<p class="page-title">پسووڵه‌ی گواستنه‌وه‌ی مه‌خزه‌ن</p>
+
+<p>
+    <a href="@Url.Action("Create",new { returnUrl = Request.RawUrl})">
+        <span class="btn btn-primary">
+            <i class="far fa-plus-square"></i>
+            زيادكردن
+        </span>
+    </a>
+</p>
+
+@Html.Partial("~/Views/ItemInvoices/StoreTransferInvoices/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ڕێككه‌وت</th>
+            <th>له‌</th>
+            <th>بۆ</th>
+            <th>دروستكه‌ر</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tr-@item.Id">
+                <td>@item.Id</td>
+                <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+                <td>@item.FromStoreName</td>
+                <td>@item.ToStoreName</td>
+                <td>@item.MoreInfo.ChangeInfo.CreatorUserFullName</td>
+                <td>
+                    <span class="btn-link" title="چاككردن">
+                        <a href="@Url.Action("Edit", new { id=item.Id,returnUrl = Request.RawUrl })">
+                            <i class="fal fa-edit"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link" title="پسووڵه‌">
+                        <a href="@Url.Action("Invoice", new { id=item.Id})">
+                            <i class="fal fa-file-invoice"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link js-remove" data-id="@item.Id" title="سڕینه‌وه‌">
+                        <i class="fal fa-trash-alt"></i>
+                    </span>
+
+                    <span class="btn-link js-toggle-info" title="زانیاری زیاتر‌">
+                        <i class="icon fal fa-chevron-circle-down"></i>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="tr-info alert-info tr-@item.Id">
+                <td colspan="6">
+                    @Html.Partial("~/Views/ItemInvoices/Shared/_InfoRow.cshtml", item.MoreInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    @Scripts.Render("~/Views/ItemInvoices/StoreTransferInvoices/shared.js")
+
+    <script>
+        $(function () {
+            $('table').on('click', '.js-remove', function () {
+                //Get the Id of the row that stored in the tag
+                id = $(this).attr('data-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-' + id);
+
+                nahro.daleteApi({
+                    url: '/api/StoreTransferInvoices/' + id,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌یه‌‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        });
+    </script>
+}

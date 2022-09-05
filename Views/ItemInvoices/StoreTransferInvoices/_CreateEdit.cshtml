@@ -1,0 +1,101 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices.StoreTransfer
+@model CreateEditStoreTransferInvoiceViewModel
+
+<div class="item-invoice-form">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div>
+                <div class="form-inline">
+                    <div class="col-lg-4" style="text-align:center">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">ڕێێككه‌وت‌</span>
+                            </div>
+                            @Html.EditorFor(model => model.InvoiceDate,
+                                new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" style="text-align:center">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">له‌</span>
+                            </div>
+                            @Html.DropDownList("FromStoreId", null, "‌",
+                                htmlAttributes: new { @class = "form-control flexselect" })
+                            @Html.ValidationMessageFor(model => model.FromStoreId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" style="text-align:center">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">بۆ</span>
+                            </div>
+                            @Html.DropDownList("ToStoreId", null, "‌",
+                                htmlAttributes: new { @class = "form-control flexselect" })
+                            @Html.ValidationMessageFor(model => model.ToStoreId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>كاڵا</th>
+                            <th>دانه‌</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model?.Items)
+                            {
+                                @Html.Action("GetRowPartial", item)
+                            }
+                        }
+
+                        @Html.Action("GetRowPartial", new CreateEditStoreTransferItemViewModel())
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <div class="form-inline">
+                    <div class="col-6" style="text-align:center">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">تێبینی</span>
+                            </div>
+                            @Html.EditorFor(model => model.Note,
+                                new { htmlAttributes = new { @class = "form-control", Placeholder= "تێبینی‌" } })
+                            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" id="btn-submit" class="btn btn-primary">
+                        <i class="fas fa-plus-square"></i>
+                        تۆماركردن
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>

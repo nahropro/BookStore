@@ -1,0 +1,38 @@
+﻿@using BookStoreModel.ViewModels.Shared
+@model PayGiveInvoiceMoreInfoViewModel
+
+<div class="row">
+    <div class="col-6">
+        <div>
+            <b>تێبینی نه‌قد: </b>
+            @Html.DisplayFor(model => model.AmountNote)
+        </div>
+
+        <div>
+            <b>دروستكه‌ر: </b>
+            @Html.DisplayFor(model => model.ChangeInfo.CreatorUserFullName)
+        </div>
+
+        <div>
+            <b>كاتی دروستكرن: </b>
+            @Model.ChangeInfo.CreationDateTime.ToLocalTime()
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div>
+            <b>تێبینی داشكاندن: </b>
+            @Html.DisplayFor(model => model.DiscountNote)
+        </div>
+
+        <div>
+            <b>ده‌ستكاریكه‌ر: </b>
+            @Html.DisplayFor(model => model.ChangeInfo.EditorUserFullName)
+        </div>
+
+        <div>
+            <b>كۆتا ده‌ستكاری: </b>
+            @(Model.ChangeInfo.LastEditedDateTime.HasValue? Model.ChangeInfo.LastEditedDateTime.Value.ToLocalTime().ToString():"")
+        </div>
+    </div>
+</div>

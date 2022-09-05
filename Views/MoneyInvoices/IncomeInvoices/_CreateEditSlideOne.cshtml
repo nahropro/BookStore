@@ -1,0 +1,72 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@model CreateEditSpendIncomeInvoiceViewModel
+
+<div class="item-invoice-form">
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <div class="form-inline">
+                <div class="col-lg-4" style="text-align:center">
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">ڕێێككه‌وت‌</span>
+                        </div>
+                        @Html.EditorFor(model => model.InvoiceDate,
+                            new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <table id="table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30%">جۆری داهات</th>
+                        <th style="width:20%">بڕ‌</th>
+                        <th style="width:45%">تێبینی‌</th>
+                        <th style="width:5%"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model!=null)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            @Html.Action("GetItemRow", item)
+                        }
+                    }
+
+                    @Html.Action("GetItemRow", new CreateEditSpendIncomeItemViewModel())
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th><span id="invoice-total">0</span></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div>
+            <div class="form-inline">
+                <div class="col-6" style="text-align:center">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">تێبینی</span>
+                        </div>
+                        @Html.EditorFor(model => model.Note,
+                            new { htmlAttributes = new { @class = "form-control", Placeholder= "تێبینی‌" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

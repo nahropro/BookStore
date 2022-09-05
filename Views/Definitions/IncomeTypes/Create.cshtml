@@ -1,0 +1,48 @@
+﻿@model BookStoreModel.Models.SpendType
+
+@{
+    ViewBag.Title = "جۆری داهات (زیادكردن)";
+}
+
+<p class="page-title">
+    جۆری داهات
+</p>
+
+<p class="page-sub-title">
+    زیادكردن
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label for="Name" class="control-label col-md-2">ناو</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i>
+                    زیادبكه
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

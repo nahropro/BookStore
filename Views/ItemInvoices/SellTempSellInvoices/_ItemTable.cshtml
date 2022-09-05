@@ -1,0 +1,33 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices.SellTempSell
+@model ICollection<CreateEditSellTempSellItemViewModel>
+
+<table id="table" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th style="width:35%">كاڵا</th>
+            <th style="width:20%">ژماره‌</th>
+            <th style="width:20%">نرخ</th>
+            <th style="width:20%">كۆ</th>
+            <th style="width:5%"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @Html.Action("GetRowPartial", item)
+        }
+
+        @Html.Action("GetRowPartial", new CreateEditSellTempSellItemViewModel())
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><span id="invoice-total">0</span></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

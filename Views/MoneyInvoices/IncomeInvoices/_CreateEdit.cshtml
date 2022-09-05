@@ -1,0 +1,35 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@model CreateEditSpendIncomeInvoiceViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div id="form-slide-1" class="form-slides" >
+            <div class="slide" slide-order="0">
+                @Html.Partial("~/Views/MoneyInvoices/IncomeInvoices/_CreateEditSlideOne.cshtml", Model)
+            </div>
+
+            <div class="slide" slide-order="1" style="display:none">
+                @Html.Partial("~/Views/MoneyInvoices/IncomeInvoices/_CreateEditSlideTwo.cshtml", Model)
+            </div>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-light form-slide-action-back" control-form-slide-for="form-slide-1">
+                <i class="fal fa-arrow-circle-right"></i>
+                گه‌ڕانه‌وه‌
+            </button>
+
+            <button type="button" class="btn btn-light form-slide-action-next" control-form-slide-for="form-slide-1">
+                دواتر‌
+                <i class="fal fa-arrow-circle-left"></i>
+            </button>
+
+            <button type="submit" id="submit-btn" class="btn btn-primary form-slide-action-submit" control-form-slide-for="form-slide-1">
+                <i class="fal fa-save"></i>
+                تۆماركردن‌
+            </button>
+        </div>
+    </div>
+}

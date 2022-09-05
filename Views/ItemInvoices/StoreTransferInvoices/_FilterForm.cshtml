@@ -1,0 +1,66 @@
+﻿@model BookStoreModel.FilterModels.StoreTransferInvoiceFilter
+
+<style>
+    .btn-submit {
+        margin-right: 5px;
+    }
+</style>
+
+<div>
+    <form method="get">
+        <div class="form-inline filter-form">
+            <div class="col-4" style="text-align:center">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">له‌</span>
+                    </div>
+                    @Html.DropDownList("FromStoreId", null, "‌",
+                        htmlAttributes: new { @class = "form-control flexselect" })
+                </div>
+
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">بۆ</span>
+                    </div>
+                    @Html.DropDownList("ToStoreId", null, "‌",
+                        htmlAttributes: new { @class = "form-control flexselect" })
+                </div>
+            </div>
+
+            <div class="col-4" style="text-align:center">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">له‌</span>
+                    </div>
+                    @Html.EditorFor(model => model.StartDate,
+                        new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">تا</span>
+                    </div>
+                    @Html.EditorFor(model => model.EndDate,
+                        new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="col-4" style="text-align:center">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">#</span>
+                    </div>
+                    @Html.EditorFor(model => model.InvoiceId,
+                        new { htmlAttributes = new { @class = "form-control", Placeholder="ژماره‌ی پسووڵه‌" } })
+                </div>
+
+                <div class="input-group mb-1">
+                    <button type="submit" class="btn btn-dark btn-submit">
+                        <i class="fal fa-search"></i>
+                        گه‌ڕان
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

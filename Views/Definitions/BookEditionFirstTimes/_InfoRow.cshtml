@@ -1,0 +1,30 @@
+﻿@using BookStoreModel.ViewModels.Shared
+@model ChangeInfoViewModel
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <div>
+                <b>دروستكه‌ر: </b>
+                @Html.DisplayFor(model => model.CreatorUserFullName)
+            </div>
+
+            <div>
+                <b>كاتی دروستكرن: </b>
+                @Model.CreationDateTime.ToLocalTime()
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div>
+                <b>ده‌ستكاریكه‌ر: </b>
+                @Html.DisplayFor(model => model.EditorUserFullName)
+            </div>
+
+            <div>
+                <b>كۆتا ده‌ستكاری: </b>
+                @(Model.LastEditedDateTime.HasValue ? Model.LastEditedDateTime.Value.ToLocalTime().ToString() : "")
+            </div>
+        </div>
+    </div>
+</div>

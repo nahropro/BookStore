@@ -1,0 +1,51 @@
+﻿
+@using BookStoreModel.ViewModels.CustomerReports
+@using BookStoreModel.FilterModels
+@model ICollection<LoanViewModel>
+
+
+@{
+    LoanFilter filter = new LoanFilter();
+
+    filter = (LoanFilter)ViewBag.Filter;
+}
+
+@Html.Partial("~/Views/CustomerReports/Loans/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>مامه‌ڵه‌كار</th>
+            <th>ته‌له‌فۆن</th>
+            <th>لایه‌تی</th>
+            <th>لامانه‌</th>
+            <th>مانه‌وه‌</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Custoemr.Id</td>
+                <td>@item.Custoemr.FullTitle</td>
+                <td>@item.Custoemr.Phone</td>
+                <td>@Html.DisplayFor(model => item.Give)</td>
+                <td>@Html.DisplayFor(model => item.Pay)</td>
+                <td>@Html.DisplayFor(model => item.Balance)</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Give))</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Pay))‌</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Balance))‌</th>
+        </tr>
+    </tfoot>
+</table>

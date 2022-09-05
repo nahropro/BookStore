@@ -1,0 +1,57 @@
+﻿@using BookStoreModel.ViewModels.StoreReoports;
+@using BookStoreModel.FilterModels
+@model ICollection<BookEditionRemainsViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی ته‌سریف";
+}
+
+@{
+    StoreRemainsFilter filter = new StoreRemainsFilter();
+
+    filter = (StoreRemainsFilter)ViewBag.Filter;
+}
+
+<p class="page-title">مانه‌وه‌ی ته‌سریف</p>
+
+@Html.Partial("~/Views/StoreReports/DischargeRemains/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>كتێب</th>
+            <th>مانه‌وه‌</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookEdition.Id</td>
+                <td>@item.BookEdition.Book.Name (@item.BookEdition.EditionInNumber - @item.BookEdition.EditionInString)</td>
+                <td>@item.Remains</td>
+                <td>
+                    <a href="@Url.Action("GetDischargeRemainsByCustomer",new { bookEditionId=item.BookEdition.Id})" title="مانه‌وه‌ی ته‌سریف به‌پێی مامه‌ڵه‌كار">
+                        <i class="fal fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@Model.Sum(i => i.Remains)</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    
+}

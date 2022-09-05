@@ -1,0 +1,59 @@
+﻿@using BookStoreModel.ViewModels.VaultReports
+@using BookStoreModel.FilterModels
+@model ICollection<VaultBalanceViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی سندووق‌";
+}
+
+@{
+    VaultBalanceFilter filter = new VaultBalanceFilter();
+
+    filter = (VaultBalanceFilter)ViewBag.Filter;
+}
+
+<p class="page-title">مانه‌وه‌ی سندووق</p>
+
+@Html.Partial("~/Views/VaultReports/VaultBalance/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>سندووق</th>
+            <th>هاتوو</th>
+            <th>ده‌رچوو</th>
+            <th>مانه‌وه‌</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.VaultId</td>
+                <td>@item.VaultName</td>
+                <td>@Html.DisplayFor(model => item.InCash)</td>
+                <td>@Html.DisplayFor(model => item.OutCash)</td>
+                <td>@Html.DisplayFor(model => item.Balance)</td>
+                <td>
+                    <a href="@Url.Action("GetDetails",new { VaultId=item.VaultId})" title="كه‌شفی قاسه‌">
+                        <i class="fal fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.InCash))</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.OutCash))‌</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Balance))‌</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

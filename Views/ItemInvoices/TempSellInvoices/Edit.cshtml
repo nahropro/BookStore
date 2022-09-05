@@ -1,0 +1,36 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices
+@model CreateEditItemInvoiceViewModel
+
+@{
+    ViewBag.Title = "پسووڵه‌ی فرۆشی ته‌سریف (چاككردن)";
+
+    //Hide discount field in shared form
+    ViewBag.HideDiscount = true;
+}
+
+<script>
+    //Use it for those create edit pages that need retriving price of items
+    var getPrice = true;
+    var tempPrice = true;
+</script>
+
+<p class="page-title">پسووڵه‌ی فرۆشی ته‌سریف</p>
+
+<p class="page-sub-title">چاككردن</p>
+
+@Html.Partial("~/Views/ItemInvoices/Shared/_CreateEditForm.cshtml", Model)
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/Views/ItemInvoices/Shared/shared.js")
+
+    @Scripts.Render("~/Views/ItemInvoices/Shared/CreateEdit.js")
+
+    <script>
+        $(function () {
+            $('#discount-div').hide();
+        });
+    </script>
+}
+

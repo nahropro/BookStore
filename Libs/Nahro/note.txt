@@ -1,0 +1,6 @@
+﻿Dependencies:
+	1- Jquery
+	2- Bootstrap
+	3- BootBox
+	4- Toastr
+	5- FontAwesome

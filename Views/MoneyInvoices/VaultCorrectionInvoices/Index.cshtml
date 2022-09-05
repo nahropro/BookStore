@@ -1,0 +1,124 @@
+﻿@using BookStoreModel.StaticData
+@using BookStoreModel.FilterModels
+@model IEnumerable<BookStoreModel.ViewModels.VaultCorrectionInvoice.SelectVaultCorrectionInvoiceViewModel>
+
+@{
+    VaultCorrectionFilter filter = new VaultCorrectionFilter();
+}
+
+@{
+    ViewBag.Title = "پسووڵه‌ی كه‌م و زیادی سندووق";
+
+    //Get the filter from viewbag and set it to partial view
+    filter = ViewBag.Filter;
+}
+
+<p class="page-title">پسووڵه‌ی كه‌م و زیادی سندووق</p>
+
+<p>
+    <a href="@Url.Action("Create",new { returnUrl = Request.RawUrl})">
+        <span class="btn btn-primary">
+            <i class="far fa-plus-square"></i>
+            زيادكردن
+        </span>
+    </a>
+</p>
+
+<div>
+    @Html.Partial("~/Views/MoneyInvoices/VaultCorrectionInvoices/_FilterForm.cshtml", filter)
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>سندووق</th>
+            <th>بڕ</th>
+            <th>جۆر</th>
+            <th>ڕێككه‌وت</th>
+            <th>دروستكه‌ر</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tr-@item.Id">
+                <td>@item.Id</td>
+                <td>@item.Vault.Name</td>
+                <td>@Html.DisplayFor(model=> item.Amount)</td>
+                <td>
+                    @{
+                        if (item.Type == BookStoreModel.Models.VaultCorrectionInvoice.VaulltCorrectionType.Increase)
+                        {
+                            <text>زیاد‌</text>
+                        }
+                        else if (item.Type == BookStoreModel.Models.VaultCorrectionInvoice.VaulltCorrectionType.Decrease)
+                        {
+                            <text>كه‌م</text>
+                        }
+                    }
+                </td>
+                <td>@Html.DisplayFor(model=> item.InvoiceDate)</td>
+                <td>@item.MoreInfo.ChangeInfo.CreatorUserFullName</td>
+                <td>
+                    <span class="btn-link" title="چاككردن">
+                        <a href="@Url.Action("Edit", new { id=item.Id,returnUrl = Request.RawUrl })">
+                            <i class="fal fa-edit"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link js-remove" data-id="@item.Id" title="سڕینه‌وه‌">
+                        <i class="fal fa-trash-alt"></i>
+                    </span>
+
+                    <span class="btn-link js-toggle-info" title="زانیاری زیاتر‌">
+                        <i class="icon fal fa-chevron-circle-down"></i>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="tr-info alert-info tr-@item.Id">
+                <td colspan="7">
+                    @Html.Partial("~/Views/MoneyInvoices/VaultCorrectionInvoices/_InfoRow.cshtml", item.MoreInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(m => m.Amount))</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    @Scripts.Render("~/Views/MoneyInvoices/Shared/shared.js");
+
+    <script>
+        $(function () {
+            $('table').on('click', '.js-remove', function () {
+                //Get the Id of the row that stored in the tag
+                id = $(this).attr('data-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-'+id);
+
+                nahro.daleteApi({
+                    url: '/api/VaultCorrectionInvoices/' + id,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌یه‌‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        });
+    </script>
+}

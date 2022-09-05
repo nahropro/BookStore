@@ -1,0 +1,77 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices
+@model SelectLostInvoiceViewModel
+
+@{
+    ViewBag.Titel = "پسووڵه‌ی خه‌سارچوو";
+}
+
+@Styles.Render("~/Views/ItemInvoices/Shared/invoice.css")
+
+<div class="row invoice-header">
+    <div class="col-4">
+        <div>
+            <p>
+                <b>ژماره‌ی پسووڵه‌: </b>
+                @Model.Id
+            </p>
+        </div>
+    </div>
+
+    <div class="col-4 title">
+        @ViewBag.Titel
+    </div>
+
+    <div class="col-4">
+        <div>
+            <b>ڕێككه‌وت: </b>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </div>
+    </div>
+</div>
+
+<div class="row invoice-body">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>كاڵا</th>
+                <th>دانه‌</th>
+                <th>نرخ</th>
+                <th>مه‌خزه‌ن</th>
+                <th>كۆ</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.BookEditionId</td>
+                    <td>@item.BookName (@item.BookEditionInNumber - @item.BookEditionInString)</td>
+                    <td>@item.Qtt</td>
+                    <td>@Html.DisplayFor(model => item.Price)</td>
+                    <td>@item.StoreName</td>
+                    <td>@Html.DisplayFor(model => item.Total)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <p>
+            <b>تێبینی: </b>
+            @Model.MoreInfo.Note
+        </p>
+    </div>
+</div>
+
+<div class="row invoice-footer">
+    <div class="offset-8 col-4">
+        <div>
+            <p>
+                <b>كۆ: </b>
+                @Html.DisplayFor(model => model.Total)
+            </p>
+        </div>
+    </div>
+</div>

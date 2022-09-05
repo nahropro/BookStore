@@ -1,0 +1,299 @@
+﻿@using BookStoreModel.StaticData
+@using Microsoft.AspNet.Identity;
+
+<style>
+    .menu-definitions {
+        width: 250px;
+    }
+
+    .menu-item-invoices {
+        width: 350px;
+    }
+
+    .menu-money-invoices {
+        width: 250px;
+    }
+
+    .menu-customer-reports {
+        width: 350px;
+    }
+
+    .menu-vault-reports {
+        width: 250px;
+    }
+
+    .menu-store-reports {
+        width: 350px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="@Url.Action("Index","Home")">
+                        سه‌ره‌كی
+                    </a>
+                </li>
+                @if (BookStore.Service.UserManager.IsUserActive(User.Identity.GetUserId()))
+                {
+                    if (User.IsInRole(RoleNames.ADMIN) || User.IsInRole(RoleNames.MANAGER))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ناساندن
+                            </a>
+                            <div class="dropdown-menu menu-definitions" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index","Customers")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-male"></i></span>
+                                    مامه‌ڵه‌كار
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","Books")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-book"></i></span>
+                                    كتێب
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","BookEditionFirstTimes")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-books"></i></span>
+                                    مانه‌وه‌ی یه‌كه‌مجاری كتێب
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","Stores")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-store-alt"></i></span>
+                                    مه‌خزه‌ن
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","Vaults")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-box-usd"></i></span>
+                                    سندووق
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","SpendTypes")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-money-bill-alt"></i></span>
+                                    جۆری خه‌رجی
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","IncomeTypes")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-money-check-alt"></i></span>
+                                    جۆری داهات
+                                </a>
+
+                                @if (User.IsInRole(RoleNames.MANAGER))
+                                {
+                                    <a class="dropdown-item" href="@Url.Action("Index","Users")">
+                                        <span class="navbar-menu-icon"><i class="fal fa-users"></i></span>
+                                        به‌كارهێنه‌ر
+                                    </a>
+                                }
+                            </div>
+                        </li>
+                    }
+
+                    if (User.IsInRole(RoleNames.EMPLOYEE) || User.IsInRole(RoleNames.ADMIN) || User.IsInRole(RoleNames.MANAGER))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                پسووڵه‌كان
+                            </a>
+                            <div class="dropdown-menu menu-item-invoices" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index","SellInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-shopping-basket"></i></span>
+                                    پسووڵه‌ی فرۆش
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","ReturnSellInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fas fa-shopping-basket"></i></span>
+                                    پسووڵه‌ گه‌ڕاوه‌ له‌ فرۆش
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","TempSellInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-cart-plus"></i></span>
+                                    پسووڵه‌ی فرۆشی ته‌سریف
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","SellTempSellInvoices")">
+                                    <span class="navbar-menu-icon"><i class="far fa-cart-plus"></i></span>
+                                    پسووڵه‌ی فرۆشی فرۆشی ته‌سریف
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","ReturnTempSellInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fas fa-cart-plus"></i></span>
+                                    پسووڵه‌ی گه‌ڕاوه‌ له‌ فرۆشی ته‌سریف
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","BuyInvoices")">
+                                    <span class="navbar-menu-icon"><i class="far fa-cart-arrow-down"></i></span>
+                                    پسووڵه‌ی كڕین
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","ReturnBuyInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fas fa-cart-arrow-down"></i></span>
+                                    پسووڵه‌ی گه‌ڕاوه‌ له‌ كڕین
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","LostInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-fragile"></i></span>
+                                    پسووڵه‌ی خه‌سارچوو
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","StoreTransferInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-dolly"></i></span>
+                                    گوواستنه‌وه‌ی‌ مه‌خزه‌ن
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                كاروباری پاره‌
+                            </a>
+                            <div class="dropdown-menu menu-money-invoices" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index","GiveInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-comment-dollar"></i></span>
+                                    پسووڵه‌ی پاره‌وه‌رگرتن
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","PayInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-comments-dollar"></i></span>
+                                    پسووڵه‌ی پاره‌پێدان
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","SpendInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-file-invoice-dollar"></i></span>
+                                    پسووڵه‌ی خه‌رجی
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","IncomeInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fas fa-file-invoice-dollar"></i></span>
+                                    پسووڵه‌ی داهات
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","CustomerToCustomerInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-handshake"></i></span>
+                                    مامه‌ڵه‌كار بۆ‌ مامه‌ڵه‌كار
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","VaultToVaultInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-boxes-alt"></i></span>
+                                    سندووق بۆ سندووق
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","VaultCorrectionInvoices")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-box-full"></i></span>
+                                    كه‌م و زیادی سندووق
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ڕاپۆرته‌كانی مامه‌ڵه‌كار
+                            </a>
+                            <div class="dropdown-menu menu-customer-reports" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("GetLoans","CustomerReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-sack-dollar"></i></span>
+                                    ڕاپۆرتی قه‌رز
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("GetDischargeLoans","CustomerReports")">
+                                    <span class="navbar-menu-icon"><i class="far fa-sack-dollar"></i></span>
+                                    ڕاپۆرتی قه‌رزی ته‌سریف
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("GetCustomerDetails","CustomerReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                                    كه‌شفی حسابی مامه‌ڵه‌كار
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("GetCustomerDischargeDetails","CustomerReports")">
+                                    <span class="navbar-menu-icon"><i class="far fa-info-circle"></i></span>
+                                    كه‌شفی ته‌سریفی حسابی مامه‌ڵه‌كار
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ڕاپۆرته‌كانی سندووق
+                            </a>
+                            <div class="dropdown-menu menu-vault-reports" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("GetBalances","VaultReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-coins"></i></span>
+                                    ڕاپۆرتی مانه‌وه‌ی سندووق
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("GetDetails","VaultReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                                    كه‌شفی سندووق
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","SpendReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-file-invoice-dollar"></i></span>
+                                    ڕاپۆرتی خەرجی
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("Index","IncomeReports")">
+                                    <span class="navbar-menu-icon"><i class="fas fa-file-invoice-dollar"></i></span>
+                                    ڕاپۆرتی داهات 
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ڕاپۆرته‌كانی مه‌خزه‌ن
+                            </a>
+                            <div class="dropdown-menu menu-store-reports" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("GetStoreRemains","StoreReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-container-storage"></i></span>
+                                    ڕاپۆرتی مانه‌وه‌ی مه‌خزه‌ن
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("GetBookEditionDetails","StoreReports")">
+                                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                                    كارتێكستی كتێب
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("GetDischargeRemains","StoreReports")">
+                                    <span class="navbar-menu-icon"><i class="far fa-container-storage"></i></span>
+                                    مانه‌وه‌ی ته‌سریف
+                                </a>
+
+                                <a class="dropdown-item" href="@Url.Action("GetDischargeRemainsByCustomer","StoreReports")">
+                                    <span class="navbar-menu-icon"><i class="far fa-info-circle"></i></span>
+                                    مانه‌وه‌ی ته‌سریف به‌پێی مامه‌ڵه‌كار
+                                </a>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+        @Html.Partial("_LoginPartial")
+    </div>
+</nav>

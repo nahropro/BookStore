@@ -1,0 +1,64 @@
+﻿@using BookStoreModel.ViewModels.BookEditionFirstTime
+@model List<CreateEditBookEditionFirstTimeViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی یه‌كه‌مجاری كتێب (زیادكردن)";
+}
+
+<p class="page-title">مانه‌وه‌ی یه‌كه‌مجاری كتێب</p>
+
+<p class="page-sub-title">زیادكردن</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th style="width:30%">كاڵا</th>
+            <th style="width:15%">ژماره‌</th>
+            <th style="width:15%">نرخ</th>
+            <th style="width:20%">مه‌خزه‌ن</th>
+            <th style="width:15%">كۆ</th>
+            <th style="width:5%"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                @Html.Action("GetRowPartial", item)
+            }
+        }
+
+        @Html.Action("GetRowPartial", new CreateEditBookEditionFirstTimeViewModel())
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><span id="invoice-total">0</span></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-primary" id="btn-submit" >
+                <i class="fas fa-plus-square"></i>
+                زیادبكه
+            </button>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    @Scripts.Render("~/Views/Definitions/BookEditionFirstTimes/Create.js")
+}

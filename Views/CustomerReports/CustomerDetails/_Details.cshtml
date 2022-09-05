@@ -1,0 +1,59 @@
+﻿@using BookStoreModel.ViewModels.CustomerReports
+@using BookStoreModel.FilterModels
+@model ICollection<CustomerDetailsViewModel>
+
+
+
+@{
+    CustomerDetailsFilter filter = new CustomerDetailsFilter();
+
+    filter = (CustomerDetailsFilter)ViewBag.Filter;
+}
+
+
+
+@Html.Partial("~/Views/CustomerReports/CustomerDetails/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ڕێككه‌وت</th>
+            <th>#</th>
+            <th>جۆری پسووڵه‌</th>
+            <th>تێبینی</th>
+            <th>داشكاندن‌</th>
+            <th>وه‌رگرتن</th>
+            <th>پێدان‌</th>
+            <th>مانه‌وه‌‌</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+            <td>@item.InvoiceId</td>
+            <td>@item.GetDescription</td>
+            <td>@item.Note</td>
+            <td>@Html.DisplayFor(model => item.Discount)</td>
+            <td>@Html.DisplayFor(model => item.BalanceGive)</td>
+            <td>@Html.DisplayFor(model => item.BalancePay)</td>
+            <td>@Html.DisplayFor(model => item.BalanceInTime)</td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.BalanceGive))</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.BalancePay))‌</th>
+            <th>@(String.Format("{0:n0}", Model.LastOrDefault()?.BalanceInTime))</th>
+        </tr>
+    </tfoot>
+</table>

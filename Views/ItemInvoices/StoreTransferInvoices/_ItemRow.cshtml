@@ -1,0 +1,18 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices.StoreTransfer
+@model  CreateEditStoreTransferItemViewModel
+
+<tr>
+    <td>
+        @Html.DropDownList("BookEditions", null, "‌",
+                            htmlAttributes: new { @class = "form-control flexselect js-book-edition" })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Qtt,
+                            new { htmlAttributes = new {@class= "form-control js-qtt", Placeholder="ژماره‌‌" } })
+    </td>
+    <td>
+        <span class="btn-link js-remove" title="سڕینه‌وه‌">
+            <i class="fal fa-trash-alt"></i>
+        </span>
+    </td>
+</tr>

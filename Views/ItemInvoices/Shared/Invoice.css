@@ -1,0 +1,24 @@
+﻿.title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.invoice-header {
+    padding: 10px;
+    border: solid 1px #000000;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.invoice-body {
+    padding: 10px;
+    border: solid 1px #000000;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.invoice-footer {
+    padding: 10px;
+    border: solid 1px #000000;
+    border-radius: 10px;
+}

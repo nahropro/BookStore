@@ -1,0 +1,373 @@
+﻿@{
+    ViewBag.Title = "سه‌ره‌كی";
+}
+
+<style>
+    .div-container{
+        padding:10px;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .div-header{
+        margin-bottom:20px;
+    }
+</style>
+
+<div class="row col-12">
+    <div class="row col-12">
+        <div class="col-6 div-container">
+            <h3 class="div-header">پسووڵه‌كان</h3>
+
+            <ul>
+                <li>
+                    <b>فرۆش</b>
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی فرۆش</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","SellInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","SellInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی گه‌ڕاوه‌ له‌ فرۆش</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","ReturnSellInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","ReturnSellInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <b>فرۆشی ته‌سریف</b>
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی فرۆشی ته‌سریفی</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","TempSellInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","TempSellInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی فرۆشی فرۆشی ته‌سریف</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","SellTempSellInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","SellTempSellInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی كه‌ڕاوه‌ له‌ فرۆشی ته‌سریفی</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","ReturnTempSellInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","ReturnTempSellInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <b>كڕین</b>
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی كڕین</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","BuyInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","BuyInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی گه‌ڕاوه‌ له‌ كڕین</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","ReturnBuyInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","ReturnBuyInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <b>ئه‌وانی تر</b>
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی خه‌سارچوو</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","LostInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","LostInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
+                                <div class="col-8">پسووڵه‌ی گواستنه‌وه‌ی مه‌خزه‌ن</div>
+                                <div class="col-4">
+                                    <a href="@Url.Action("Create","StoreTransferInvoices")">
+                                        <i class="fal fa-plus-circle"></i>
+                                    </a>
+                                    <a href="@Url.Action("Index","StoreTransferInvoices")">
+                                        <i class="fal fa-external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-6 div-container">
+            <h3 class="div-header">كاروباری پاره‌</h3>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">پاره‌وه‌رگرتن</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","GiveInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","GiveInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">پاره‌پێدان</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","PayInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","PayInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">پسووڵه‌ی خه‌رجی</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","SpendInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","SpendInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">پسووڵه‌ی داهات</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","IncomeInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","IncomeInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">گواستنه‌وه‌ له‌ نێوان مامه‌ڵه‌كاران</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","CustomerToCustomerInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","CustomerToCustomerInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">گواستنه‌وه‌ له‌ نێوان سندووقه‌كان</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","VaultToVaultInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","VaultToVaultInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+
+            <p>
+                <div class="row">
+                    <div class="col-8">كه‌م و زیادی سندووق</div>
+                    <div class="col-4">
+                        <a href="@Url.Action("Create","VaultCorrectionInvoices")">
+                            <i class="fal fa-plus-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Index","VaultCorrectionInvoices")">
+                            <i class="fal fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-4 div-container">
+            <h5 class="div-header">ڕاپۆرته‌كانی مامه‌ڵه‌كار</h5>
+
+            <p>
+                <a href="@Url.Action("GetLoans","CustomerReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-sack-dollar"></i></span>
+                    ڕاپۆرتی قه‌رز
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetDischargeLoans","CustomerReports")">
+                    <span class="navbar-menu-icon"><i class="far fa-sack-dollar"></i></span>
+                    ڕاپۆرتی قه‌رزی ته‌سریف
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetCustomerDetails","CustomerReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                    كه‌شفی حسابی مامه‌ڵه‌كار
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetCustomerDischargeDetails","CustomerReports")">
+                    <span class="navbar-menu-icon"><i class="fas fa-info-circle"></i></span>
+                    كه‌شفی ته‌سریفی حسابی مامه‌ڵه‌كار
+                </a>
+            </p>
+        </div>
+
+        <div class="col-4 div-container">
+            <h5 class="div-header">ڕاپۆرته‌كانی سندووق</h5>
+
+            <p>
+                <a href="@Url.Action("GetBalances","VaultReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-coins"></i></span>
+                    ڕاپۆرتی مانه‌وه‌ی سندووق
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetDetails","VaultReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                    كه‌شفی سندووق
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("Index","SpendReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-file-invoice-dollar"></i></span>
+                    ڕاپۆرتی خەرجی
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("Index","IncomeReports")">
+                    <span class="navbar-menu-icon"><i class="fas fa-file-invoice-dollar"></i></span>
+                    ڕاپۆرتی داهات
+                </a>
+            </p>
+        </div>
+
+        <div class="col-4 div-container">
+            <h5 class="div-header">ڕاپۆرته‌كانی مه‌خزه‌ن</h5>
+
+            <p>
+                <a href="@Url.Action("GetStoreRemains","StoreReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-container-storage"></i></span>
+                    ڕاپۆرتی مانه‌وه‌ی مه‌خزه‌ن
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetBookEditionDetails","StoreReports")">
+                    <span class="navbar-menu-icon"><i class="fal fa-info-circle"></i></span>
+                    كارتێكستی كتێب
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetDischargeRemains","StoreReports")">
+                    <span class="navbar-menu-icon"><i class="far fa-container-storage"></i></span>
+                    مانه‌وه‌ی ته‌سریف
+                </a>
+            </p>
+
+            <p>
+                <a href="@Url.Action("GetDischargeRemainsByCustomer","StoreReports")">
+                    <span class="navbar-menu-icon"><i class="far fa-info-circle"></i></span>
+                    مانه‌وه‌ی ته‌سریف به‌پێی مامه‌ڵه‌كار
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

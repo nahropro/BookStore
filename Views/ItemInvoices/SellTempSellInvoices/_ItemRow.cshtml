@@ -1,0 +1,25 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices.SellTempSell
+@model  CreateEditSellTempSellItemViewModel
+
+<tr>
+    <td>
+        @Html.DropDownList("BookEditions", null, "‌",
+                            htmlAttributes: new { @class = "form-control flexselect js-book-edition" })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Qtt,
+                            new { htmlAttributes = new {@class= "form-control js-qtt", Placeholder="ژماره‌‌" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Price,
+                            new { htmlAttributes = new { @class = "form-control js-price", Placeholder ="ژماره‌‌" } })
+    </td>
+    <td>
+        <input type="text" class="form-control js-row-total" disabled />
+    </td>
+    <td>
+        <span class="btn-link js-remove" title="سڕینه‌وه‌">
+            <i class="fal fa-trash-alt"></i>
+        </span>
+    </td>
+</tr>

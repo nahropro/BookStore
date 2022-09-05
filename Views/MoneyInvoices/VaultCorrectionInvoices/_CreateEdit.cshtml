@@ -1,0 +1,83 @@
+﻿@using BookStoreModel.Models;
+@model BookStoreModel.ViewModels.VaultCorrectionInvoice.CreateEditVaultCorrectionInvoiceViewModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (Model.Id>0)
+        {
+            @Html.HiddenFor(model=> model.Id)
+        }
+
+        <div class="form-group">
+            <label for="VaultId" class="control-label col-md-2">سندووق</label>
+            <div class="col-md-10">
+                @Html.DropDownList("VaultId", null, "", htmlAttributes: new { @class = "form-control flexselect" })
+                @Html.ValidationMessageFor(model => model.VaultId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Amount" class="control-label col-md-2">بڕ</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="InvoiceDate" class="control-label col-md-2">ڕێككه‌وت</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InvoiceDate,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="CorrectionType" class="control-label col-md-2">جۆر</label>
+            <div class="col-md-10">
+                <select class="form-control flexselect" id="CorrectionType" name="CorrectionType">
+                    <option></option>
+                    <option value="@VaultCorrectionInvoice.VaulltCorrectionType.Increase"
+                            @(Model.CorrectionType == VaultCorrectionInvoice.VaulltCorrectionType.Increase ? "Selected" : "")>
+                        زیاد
+                    </option>
+                    <option value="@VaultCorrectionInvoice.VaulltCorrectionType.Decrease"
+                            @(Model.CorrectionType == VaultCorrectionInvoice.VaulltCorrectionType.Decrease ? "Selected" : "")>
+                        كه‌م
+                    </option>
+                </select>
+                @Html.ValidationMessageFor(model => model.CorrectionType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Note" class="control-label col-md-2">تێبینی</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i>
+                    تۆماركردن
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>
+

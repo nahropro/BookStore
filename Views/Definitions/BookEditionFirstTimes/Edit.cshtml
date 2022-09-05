@@ -1,0 +1,98 @@
+﻿@model BookStoreModel.ViewModels.BookEditionFirstTime.CreateEditBookEditionFirstTimeViewModel
+
+@{
+    ViewBag.Title = "مانه‌ووه‌ی یه‌كه‌مجاری كتێب (چاككردن)";
+}
+
+<p class="page-title">
+    مانه‌ووه‌ی یه‌كه‌مجاری كتێب
+</p>
+
+<p class="page-sub-title">
+    چاككردن
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label for="BookEditionId" class="control-label col-md-2">كتێب</label>
+        <div class="col-md-10">
+            <input type="text" disabled class="form-control" value="@ViewBag.BookName" />
+            @Html.HiddenFor(model=> model.BookEditionId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Qtt" class="control-label col-md-2">دانه‌</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Qtt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Qtt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Price" class="control-label col-md-2">نرخ</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Total" class="control-label col-md-2">كۆ</label>
+        <div class="col-md-10">
+            <input type="text" disabled class="form-control js-total" id="Total" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="StoreId" class="control-label col-md-2">مه‌خزه‌ن</label>
+        <div class="col-md-10">
+            <input type="text" disabled class="form-control" value="@ViewBag.StoreName" />
+            @Html.HiddenFor(model => model.StoreId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">
+                <i class="fal fa-save"></i>
+                چاككردن
+            </button>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+
+            calculateTotal();   //On load calcualte total
+
+            //On evnet change qtt or price field calculate total
+            $('form').on('change', '#Price,#Qtt', calculateTotal);
+        });
+
+        function calculateTotal() {
+            var qtt = parseInt($('#Qtt').val());  //Get qtt
+            var price = parseFloat($('#Price').val());  //Get price
+
+            $('#Total').val((qtt * price).toLocaleString('en'))
+        }
+    </script>
+}

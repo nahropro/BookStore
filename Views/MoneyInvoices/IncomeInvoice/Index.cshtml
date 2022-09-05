@@ -1,0 +1,126 @@
+﻿@using BookStoreModel.ViewModels.SpendIncome
+@using BookStoreModel.FilterModels
+@model IEnumerable<SelectSpendIncomeInvoiceViewModel>
+
+@{
+    ViewBag.Title = "پسووڵه‌ی خه‌رجی";
+
+    SpendIncomeFilter filter = new SpendIncomeFilter();
+
+    filter = (SpendIncomeFilter)ViewBag.Filter;
+}
+
+<p class="page-title">پسووڵه‌ی خه‌رجی</p>
+
+<p>
+    <a href="@Url.Action("Create",new { returnUrl = Request.RawUrl})">
+        <span class="btn btn-primary">
+            <i class="far fa-plus-square"></i>
+            زيادكردن
+        </span>
+    </a>
+</p>
+
+@Html.Partial("~/Views/MoneyInvoices/SpendInvoices/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ڕێككه‌وت</th>
+            <th>بڕ</th>
+            <th>نه‌قد</th>
+            <th>قاسه‌</th>
+            <th>قه‌رز</th>
+            <th>مامه‌ڵه‌كار</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tr-@item.Id">
+                <td>@item.Id</td>
+                <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+                <td>@Html.DisplayFor(model => item.Total)</td>
+                <td>@Html.DisplayFor(model => item.Cash)</td>
+                <td>@Html.DisplayFor(model => item.Vault.Name)</td>
+                <td>@Html.DisplayFor(model => item.Loan)</td>
+                <td>@(item.Customer != null ? item.Customer.FullName + "(" + item.Customer.WorkPlace + ")" : "" )</td>
+                <td>
+                    <span class="btn-link" title="چاككردن">
+                        <a href="@Url.Action("Edit", new { id=item.Id,returnUrl = Request.RawUrl })">
+                            <i class="fal fa-edit"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link" title="پسووڵه‌">
+                        <a href="@Url.Action("Invoice", new { id=item.Id})">
+                            <i class="fal fa-file-invoice"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link js-remove" data-id="@item.Id" title="سڕینه‌وه‌">
+                        <i class="fal fa-trash-alt"></i>
+                    </span>
+
+                    <span class="btn-link js-toggle-info" title="زانیاری زیاتر‌">
+                        <i class="icon fal fa-chevron-circle-down"></i>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="tr-info alert-info tr-@item.Id">
+                <td colspan="8">
+                    @Html.Partial("~/Views/MoneyInvoices/SpendInvoices/_InfoRow.cshtml", item.MoreInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Total))</th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Cash))</th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Loan))</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+
+            //Event for toggle item detail
+            $('table').on('click', '.js-toggle-info', function () {
+                $this = $(this);
+                $this.parents('tr').next('tr').slideToggle(function () {
+                    $this.children('.icon').toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-up');
+                });
+            });
+
+            $('table').on('click', '.js-remove', function () {
+                //Get the Id of the row that stored in the tag
+                id = $(this).attr('data-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-' + id);
+
+                nahro.daleteApi({
+                    url: '/api/SpendInvoices/' + id,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌یه‌‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        });
+    </script>
+}

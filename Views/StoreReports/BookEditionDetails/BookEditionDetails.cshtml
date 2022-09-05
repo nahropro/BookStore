@@ -1,0 +1,73 @@
+﻿@using BookStoreModel.ViewModels.StoreReoports
+@using BookStoreModel.FilterModels
+@model ICollection<BookEditionDetailsViewModel>
+
+@{
+    ViewBag.Title = "كارتیكستی كتێب";
+}
+
+@{
+    BookEditionDetailsFilter filter = new BookEditionDetailsFilter();
+
+    filter = (BookEditionDetailsFilter)ViewBag.Filter;
+}
+
+<p class="page-title">كارتیكستی كتێب</p>
+
+@Html.Partial("~/Views/StoreReports/BookEditionDetails/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ڕێككه‌وت</th>
+            <th>#</th>
+            <th>مامه‌ڵه‌كار</th>
+            <th>جۆری پسووڵه‌</th>
+            <th>نرخ</th>
+            <th>مه‌خزه‌ن</th>
+            <th>هاتوو‌</th>
+            <th>ده‌رچوو</th>
+            <th>مانه‌وه‌</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+            <td>@item.InvoiceId</td>
+            <td>@(item.Customer!=null?item.Customer.FullName + " - " + item.Customer.WorkPlace :"")</td>
+            <td>@item.GetDescription</td>
+            <td>@Html.DisplayFor(model => item.Price)</td>
+            <td>@(item.Store?.Name)</td>
+            <td>@item.In</td>
+            <td>@item.Out</td>
+            <td>@item.RemainsInTime</td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@Model.Sum(i => i.In)</th>
+            <th>@Model.Sum(i => i.Out)‌</th>
+            <th>@(Model.LastOrDefault()?.RemainsInTime)</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+        });
+    </script>
+}

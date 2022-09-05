@@ -1,0 +1,67 @@
+﻿@using BookStoreModel.ViewModels.VaultReports
+@using BookStoreModel.FilterModels
+@model ICollection<VaultDetailsViewModel>
+
+@{
+    ViewBag.Title = "كه‌شفی سندووق‌";
+}
+
+@{
+    VaultDetailsFilter filter = new VaultDetailsFilter();
+
+    filter = (VaultDetailsFilter)ViewBag.Filter;
+}
+
+<p class="page-title">كه‌شفی سندووق</p>
+
+@Html.Partial("~/Views/VaultReports/VaultDetails/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ڕێككه‌وت</th>
+            <th>#</th>
+            <th>جۆری پسووڵه‌</th>
+            <th>تێبینی</th>
+            <th>هاتوو‌</th>
+            <th>ده‌رچوو</th>
+            <th>مانه‌وه‌</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+            <td>@item.InvoiceId</td>
+            <td>@item.GetDescription</td>
+            <td>@item.Note</td>
+            <td>@(item.IsInOrOut ? Html.DisplayFor(model => item.Amount).ToHtmlString() : "0")</td>
+            <td>@(item.IsInOrOut ? "0" : Html.DisplayFor(model => item.Amount).ToHtmlString())</td>
+            <td>@Html.DisplayFor(model => item.BalanceInTime)</td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Where(i => i.IsInOrOut).Sum(i => i.Amount))</th>
+            <th>@String.Format("{0:n0}", Model.Where(i => !i.IsInOrOut).Sum(i => i.Amount))‌</th>
+            <th>‌@String.Format("{0:n0}", Model.LastOrDefault()?.BalanceInTime)‌</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+        });
+    </script>
+}

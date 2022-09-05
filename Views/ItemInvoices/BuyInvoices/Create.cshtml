@@ -1,0 +1,21 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices
+@model CreateEditItemInvoiceViewModel
+
+@{
+    ViewBag.Title = "پسووڵه‌ی كڕین (زیادكردن)";
+}
+
+<p class="page-title">پسووڵه‌ی كڕین</p>
+
+<p class="page-sub-title">زیادكردن</p>
+
+@Html.Partial("~/Views/ItemInvoices/Shared/_CreateEditForm.cshtml", Model)
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/Views/ItemInvoices/Shared/shared.js")
+
+    @Scripts.Render("~/Views/ItemInvoices/Shared/CreateEdit.js")
+}
+

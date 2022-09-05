@@ -1,0 +1,47 @@
+﻿@using BookStoreModel.FilterModels
+@using BookStoreModel.ViewModels.SpendIncomeReports
+@model ICollection<SpendIncomeReport>
+
+@{
+    SpendIncomeReportFilter filter = new SpendIncomeReportFilter();
+
+    ViewBag.Title = "ڕاپۆرتی خەرجی";
+
+    filter = ViewBag.Filter;
+}
+
+<p class="page-title">ڕاپۆرتی خەرجی</p>
+
+@Html.Partial("~/views/SpendIncomeReports/shared/_FilterForm.cshtml",filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ڕێككەوت</th>
+            <th>جۆری خەرجی</th>
+            <th>بڕ</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model=> item.InvoiceId)</td>
+                <td>@Html.DisplayFor(model => item.InvoiceDate)</td>
+                <td>@Html.DisplayFor(model => item.Type.Name)</td>
+                <td>@Html.DisplayFor(model => item.Amount)</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>@String.Format("{0:n0}", Model.Sum(i => i.Amount))‌</th>
+        </tr>
+    </tfoot>
+</table>

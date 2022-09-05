@@ -1,0 +1,11 @@
+﻿@using BookStoreModel.ViewModels.CustomerReports
+@using BookStoreModel.FilterModels
+@model ICollection<LoanViewModel>
+
+@{
+    ViewBag.Title = "قه‌رزی مامه‌ڵه‌كاره‌كان";
+}
+
+<p class="page-title">قه‌رزی ته‌سریفی مامه‌ڵه‌كاره‌كان</p>
+
+@Html.Partial("~/Views/CustomerReports/Loans/_Loan.cshtml", Model)

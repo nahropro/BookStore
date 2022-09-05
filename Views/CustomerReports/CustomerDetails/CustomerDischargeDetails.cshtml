@@ -1,0 +1,19 @@
+﻿@using BookStoreModel.ViewModels.CustomerReports
+@model ICollection<CustomerDetailsViewModel>
+
+@{
+    ViewBag.Title = "كه‌شفی ته‌سریفی حسابی مامه‌ڵه‌كار";
+}
+
+<p class="page-title">كه‌شفی ته‌سریفی حسابی مامه‌ڵه‌كار</p>
+
+@Html.Partial("~/Views/CustomerReports/CustomerDetails/_Details.cshtml", Model)
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+        });
+    </script>
+}

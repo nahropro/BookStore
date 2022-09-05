@@ -1,0 +1,119 @@
+﻿@using BookStoreModel.ViewModels.BookEditionFirstTime
+@using BookStoreModel.FilterModels
+@model ICollection<SelectBookEditionFirstTimeViewModel>
+
+@{
+    ViewBag.Title = "مانه‌وه‌ی یه‌كه‌مجاری كتێب";
+}
+
+@{
+    BookEditionFirstTimeFilter filter = new BookEditionFirstTimeFilter();
+
+    //Get the filter from viewbag and set it to partial view
+    filter = ViewBag.Filter;
+}
+
+<p class="page-title">مانه‌وه‌ی یه‌كه‌مجاری كتێب</p>
+
+<p>
+    <a href="@Url.Action("Create",new { returnUrl = Request.RawUrl})">
+        <span class="btn btn-primary">
+            <i class="far fa-plus-square"></i>
+            زيادكردن
+        </span>
+    </a>
+</p>
+
+@Html.Partial("~/Views/Definitions/BookEditionFirstTimes/_FilterForm.cshtml", filter)
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>كتێب</th>
+            <th>دانه‌</th>
+            <th>نرخ</th>
+            <th>مه‌خه‌ن</th>
+            <th>كۆ</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tr-@item.StoreId-@item.BookEditionId">
+                <td>@item.BookEditionId</td>
+                <td>@item.BookName (@item.BookEdtionInNumber - @item.BookEditionInText)</td>
+                <td>@item.Qtt</td>
+                <td>@Html.DisplayFor(model => item.Price)</td>
+                <td>@item.StoreName</td>
+                <td>@Html.DisplayFor(model => item.Total)</td>
+                <td>
+                    <span class="btn-link" title="چاككردن">
+                        <a href="@Url.Action("Edit", new { storeId=item.StoreId,bookEditionId=item.BookEditionId,returnUrl = Request.RawUrl })">
+                            <i class="fal fa-edit"></i>
+                        </a>
+                    </span>
+
+                    <span class="btn-link js-remove" data-store-id="@item.StoreId" data-book-edition-id="@item.BookEditionId" title="سڕینه‌وه‌">
+                        <i class="fal fa-trash-alt"></i>
+                    </span>
+
+                    <span class="btn-link js-toggle-info" title="زانیاری زیاتر‌">
+                        <i class="icon fal fa-chevron-circle-down"></i>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="tr-info alert-info tr-@item.StoreId-@item.BookEditionId">
+                <td colspan="7">
+                    @Html.Partial("~/Views/Definitions/BookEditionFirstTimes/_InfoRow.cshtml", item.ChangeInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Set flexselect to those select tags that has class flexselect
+            $('select.flexselect').flexselect();
+
+            toggleInfo();
+            removeItem();
+        });
+
+        //Toggle info row
+        function toggleInfo() {
+            //Event for toggle item detail
+            $('table').on('click', '.js-toggle-info', function () {
+                $this = $(this);
+                $this.parents('tr').next('tr').slideToggle(function () {
+                    $this.children('.icon').toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-up');
+                });
+            });
+        }
+
+        //For deleting item
+        function removeItem() {
+            $('table').on('click', '.js-remove', function () {
+                //Get sore-id and book-edition-id
+                storeId = $(this).attr('data-store-id');
+                bookEditionId = $(this).attr('data-book-edition-id');
+                //Get the paret tr and the next info row
+                $trs = $('tr.tr-' + storeId + '-' + bookEditionId);
+
+                nahro.daleteApi({
+                    url: '/api/BookEditionFirstTimes/?storeId=' + storeId + '&bookEditionId=' + bookEditionId,
+                    message: 'دڵنیای له‌ سڕینه‌وه‌ی ئه‌م پسووڵه‌یه‌‌‌‌؟',
+                    successMessage: 'كاره‌كه‌ سه‌ركه‌وتووبوو',
+                    failMessage: 'هه‌ڵه‌یه‌ك ڕوویدا',
+                    parent: $trs
+                });
+            });
+        }
+    </script>
+}
+

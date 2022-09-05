@@ -1,0 +1,35 @@
+﻿@using BookStoreModel.ViewModels.ItemInvoices
+@model ItemInvoiceMoreInfoViewModel
+
+<div>
+    <div>
+        <b>تێبینی: </b>
+        @Html.DisplayFor(model => model.Note)
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div>
+                <b>دروستكه‌ر: </b>
+                @Html.DisplayFor(model => model.ChangeInfo.CreatorUserFullName)
+            </div>
+
+            <div>
+                <b>كاتی دروستكرن: </b>
+                @Model.ChangeInfo.CreationDateTime.ToLocalTime()
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div>
+                <b>ده‌ستكاریكه‌ر: </b>
+                @Html.DisplayFor(model => model.ChangeInfo.EditorUserFullName)
+            </div>
+
+            <div>
+                <b>كۆتا ده‌ستكاری: </b>
+                @(Model.ChangeInfo.LastEditedDateTime.HasValue ? Model.ChangeInfo.LastEditedDateTime.Value.ToLocalTime().ToString() : "")
+            </div>
+        </div>
+    </div>
+</div>

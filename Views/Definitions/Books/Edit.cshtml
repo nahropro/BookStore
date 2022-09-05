@@ -1,0 +1,61 @@
+﻿@model BookStoreModel.Models.Book
+
+@{
+    ViewBag.Title = "كتێب (چاككردن)";
+}
+
+<p class="page-title">كتێب</p>
+
+<p class="page-sub-title">چاككردن</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label for="Name" class="control-label col-md-2">ناو</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Authors" class="control-label col-md-2">نوسه‌ر</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Authors, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Authors, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Translators" class="control-label col-md-2">وه‌رگێڕ</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Translators, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Translators, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fal fa-save"></i>
+                    چاككردن
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("گه‌ڕانه‌وه‌", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

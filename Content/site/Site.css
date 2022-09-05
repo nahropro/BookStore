@@ -1,0 +1,66 @@
+﻿body {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 500px;
+}
+
+p.page-title{
+    font-size:30px;
+    text-align:center;
+}
+
+p.page-sub-title {
+    font-size: 20px;
+    border: solid 2px #28a745;
+    background-color: #20c997;
+    color: #ffffff;
+    padding: 7px;
+    width:350px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-bottom: 5px;
+}
+
+span.navbar-menu-icon {
+    /*text-align:right;*/
+    width:30px;
+    float:right;
+}
+
+div.filter-form {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    background-color: #17a2b8;
+    border-radius: 10px;
+    border: solid 1px #17a2b8;
+}
+
+tr.tr-info{
+    display:none;
+}
+
+.item-invoice-form{
+    padding:10px;
+    border-radius:10px;
+    background-color:#edecec;
+}
